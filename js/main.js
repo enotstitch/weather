@@ -4,7 +4,6 @@ import {
   tabsButtons,
   nowTemp,
   nowCity,
-  icon,
   favoriteButton,
   detailsHeading,
   detailsTemp,
@@ -17,34 +16,12 @@ import {
 } from './view.js';
 
 import { tabs } from './tabs.js';
+import { serverUrl, apiKey } from './api.js';
+import { getIcon, getTimes } from './helpers.js';
 
 tabsButtons.forEach((tabsBtn) => {
   tabsBtn.addEventListener('click', tabs);
 });
-
-const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
-const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f';
-
-const getIcon = (nowIcon, description) => {
-  icon.setAttribute(
-    'src',
-    `http://openweathermap.org/img/wn/${nowIcon}@2x.png`
-  );
-  icon.setAttribute('alt', `${description}`);
-};
-
-const getTimes = (timestamp) => {
-  let time = new Date(timestamp * 1000);
-  let hours = time.getHours();
-  let minutes = time.getMinutes();
-  if (minutes < 10) {
-    return `${hours}:` + 0 + `${minutes}`;
-  } else if (hours < 10) {
-    return 0 + `${hours}:` + `${minutes}`;
-  } else {
-    return `${hours}:` + `${minutes}`;
-  }
-};
 
 searchForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -87,7 +64,7 @@ let favoriteItems = [];
 
 const addFavoriteCity = () => {
   let cityIndex = favoriteItems.findIndex(
-    (item) => item.city === nowCity.textContent
+    (city) => city === nowCity.textContent
   );
 
   if (cityIndex >= 0) {
@@ -98,9 +75,7 @@ const addFavoriteCity = () => {
     return;
   }
 
-  favoriteItems.push({
-    city: nowCity.textContent,
-  });
+  favoriteItems.push(nowCity.textContent);
   renderFavoriteList();
 };
 
@@ -111,8 +86,8 @@ favoriteButton.addEventListener('click', () => {
 
 const renderFavoriteList = () => {
   favoriteList.innerHTML = '';
-  favoriteItems.forEach((item) => {
-    createFavoriteItem(item.city);
+  favoriteItems.forEach((city) => {
+    createFavoriteItem(city);
   });
 };
 
@@ -132,7 +107,7 @@ const createFavoriteItem = (city) => {
 };
 
 const deleteFavoriteItem = (city) => {
-  let cityIndex = favoriteItems.findIndex((item) => item.city === city);
+  let cityIndex = favoriteItems.findIndex((item) => item === city);
   favoriteItems.splice(cityIndex, 1);
   renderFavoriteList();
 };
