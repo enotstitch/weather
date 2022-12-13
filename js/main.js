@@ -30,7 +30,18 @@ searchForm.addEventListener('submit', (event) => {
   weatherRender();
 });
 
+const saveCurrentCity = (city) => {
+  localStorage.setItem('current-city', city);
+};
+
 let cityName = 'Moscow';
+
+const getCurrentCity = () => {
+  let currentCity = localStorage.getItem('current-city');
+  cityName = currentCity;
+};
+
+getCurrentCity();
 
 const weatherRender = () => {
   const url = `${serverUrl}?q=${cityName}&lang=en&units=metric&appid=${apiKey}`;
@@ -54,6 +65,7 @@ const weatherRender = () => {
       detailsWeather.textContent = weather[0].main;
       detailsSunrise.textContent = getTimes(sunrise);
       detailsSunset.textContent = getTimes(sunset);
+      saveCurrentCity(name);
     })
     .catch((error) => alert('Ошибка'));
 };
@@ -68,24 +80,24 @@ const addFavoriteCity = () => {
   );
 
   if (cityIndex >= 0) {
-    favoriteError.classList.add('favorite__error--active');
-    setTimeout(() => {
-      favoriteError.classList.remove('favorite__error--active');
-    }, 2000);
+    deleteFavoriteItem(nowCity.textContent);
     return;
   }
 
   favoriteItems.push(nowCity.textContent);
+  saveFavoriteCities(favoriteItems);
   renderFavoriteList();
 };
 
 favoriteButton.addEventListener('click', () => {
-  // TODO: favoriteButton.classList.toggle('favorite-icon--red');
   addFavoriteCity();
 });
 
 const renderFavoriteList = () => {
   favoriteList.innerHTML = '';
+
+  favoriteItems = getFavoriteCities();
+
   favoriteItems.forEach((city) => {
     createFavoriteItem(city);
   });
@@ -109,6 +121,7 @@ const createFavoriteItem = (city) => {
 const deleteFavoriteItem = (city) => {
   let cityIndex = favoriteItems.findIndex((item) => item === city);
   favoriteItems.splice(cityIndex, 1);
+  saveFavoriteCities(favoriteItems);
   renderFavoriteList();
 };
 
@@ -127,3 +140,16 @@ favoriteList.addEventListener('click', (event) => {
     weatherRender();
   }
 });
+
+const saveFavoriteCities = (arrayCity) => {
+  let stringCity = JSON.stringify(arrayCity);
+  localStorage.setItem('favorite-cities', stringCity);
+};
+
+const getFavoriteCities = () => {
+  let favoriteCities = localStorage.getItem('favorite-cities');
+  let arrayFavoriteCities = JSON.parse(favoriteCities);
+  return arrayFavoriteCities;
+};
+
+renderFavoriteList();
