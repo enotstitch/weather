@@ -53,6 +53,13 @@ body {
   user-select: none;
 }
 
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
 .link-reset {
   text-decoration: none;
   color: inherit;
@@ -75,6 +82,7 @@ body {
 .weather {
   padding: 15px;
   max-width: 600px;
+  flex-grow: 1;
 }
 
 .weather__wrap {
@@ -83,6 +91,8 @@ body {
   max-height: 435px;
   min-height: 435px;
   border: 1px solid var(--dark-color);
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 .weather__search {
