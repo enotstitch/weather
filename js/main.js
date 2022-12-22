@@ -33,11 +33,16 @@ const saveCurrentCity = (city) => {
   localStorage.setItem('current-city', city);
 };
 
-let cityName = 'Moscow';
+let cityName = '';
 
 const getCurrentCity = () => {
+  cityName = 'Moscow';
+
   let currentCity = localStorage.getItem('current-city');
-  cityName = currentCity;
+
+  if (currentCity) {
+    cityName = currentCity;
+  }
 };
 
 getCurrentCity();
