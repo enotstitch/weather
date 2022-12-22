@@ -3,7 +3,7 @@ import { icon } from './view.js';
 const getIcon = (nowIcon, description) => {
   icon.setAttribute(
     'src',
-    `http://openweathermap.org/img/wn/${nowIcon}@2x.png`
+    `https://openweathermap.org/img/wn/${nowIcon}@2x.png`
   );
   icon.setAttribute('alt', `${description}`);
 };
