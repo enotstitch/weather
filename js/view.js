@@ -14,4 +14,5 @@ export let detailsWeather = document.querySelector('.weath-value');
 export let detailsSunrise = document.querySelector('.sunrise-value');
 export let detailsSunset = document.querySelector('.sunset-value');
 export let favoriteList = document.querySelector('.favorite__list');
+export let favoriteIcon = document.querySelector('.favorite-icon');
 export let favoriteError = document.querySelector('.favorite__error');

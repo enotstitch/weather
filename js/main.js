@@ -149,7 +149,7 @@ const saveFavoriteCities = (arrayCity) => {
 const getFavoriteCities = () => {
   let favoriteCities = localStorage.getItem('favorite-cities');
   let arrayFavoriteCities = JSON.parse(favoriteCities);
-  return arrayFavoriteCities;
+  return arrayFavoriteCities || favoriteItems;
 };
 
 renderFavoriteList();
