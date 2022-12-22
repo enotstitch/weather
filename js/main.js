@@ -12,7 +12,6 @@ import {
   detailsSunrise,
   detailsSunset,
   favoriteList,
-  favoriteError,
 } from './view.js';
 
 import { tabs } from './tabs.js';

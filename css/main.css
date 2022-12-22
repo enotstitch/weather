@@ -250,28 +250,6 @@ body {
   align-items: center;
 }
 
-.favorite__error {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  font-size: 16px;
-  width: fit-content;
-  height: fit-content;
-  padding: 5px;
-  border-radius: 5px;
-  background-color: var(--torch-red);
-  top: -55px;
-  right: 0;
-  text-align: center;
-  color: var(--light-color);
-  transition: all 0.3s;
-}
-
-.favorite__error--active {
-  opacity: 1;
-  visibility: visible;
-}
-
 .favorite-icon use {
   fill: var(--placeholder-color);
   transition: all 0.3s;
